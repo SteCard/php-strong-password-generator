@@ -14,10 +14,30 @@
 <body style="background-color: #ababc2">
     <div class="container my-3">
         <div class="row">
+            
             <div class="col-12 text-center">
                 <h1 class="fw-bold">Strong Password Generator</h1>
                 <h2 class="text-success fw-bold">Genera una password sicura</h2>
             </div>
+
+            <div class="col-12 d-flex justify-content-center">
+                <!-- Form -->
+                <form action="index.php" method="GET" class="bg-white rounded-2 p-4 w-50 my-3">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <label for="password-length">Lunghezza Password:</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" name="password-length" id="password-length" class="py-2">
+                        </div>
+                        <div class="col-12 d-flex justify-content-center mt-5">
+                            <button type="submit" class="btn btn-primary mx-1">Invia</button>
+                            <button type="reset" class="btn btn-secondary mx-1">Annulla</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </body>
