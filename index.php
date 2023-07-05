@@ -1,5 +1,35 @@
 <?php
+    // CONTROLLO VARIABILI DEL METODO GET 
+    if(isset($_GET['password-length']) && $_GET['password-length'] !== '' && $_GET['password-length'] > 0) {
 
+        $passwordLength = $_GET['password-length'];
+
+        // FUNZIONE PER GENERARE PASSWORD
+        function randomPassword($maxLength) {
+
+            // ELENCO CARATTERI
+            $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()';
+
+            // LUNGHEZZA ELENCO CARATTERI
+            $charactersLength = strlen($characters);
+
+            // ARRAY PASSWORD GENERATA
+            $password = [];
+
+            // CICLO FOR (DA 1 ALLA LUNGHEZZA SCELTA DALL'UTENTE)
+            for ($i = 1; $i <= $maxLength; $i++) {
+
+                // NUMERO RANDOM CHE VA DA 1 ALLA LUNGHEZZA DELL'ELENCO CARATTERI
+                $n = rand(1, $charactersLength);
+
+                $password[] = $characters[$n-1];
+            }
+
+            return implode($password);
+        }
+
+        $password = randomPassword($passwordLength);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -21,23 +51,33 @@
             </div>
 
             <div class="col-12 d-flex justify-content-center">
-                <!-- Form -->
-                <form action="index.php" method="GET" class="bg-white rounded-2 p-4 w-50 my-3">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <label for="password-length">Lunghezza Password:</label>
+                <?php if(!isset($_GET['password-length']) || $_GET['password-length'] === '' || $_GET['password-length'] <= 0){ ?>
+                    <!-- Form -->
+                    <form action="index.php" method="GET" class="bg-white rounded-3 p-5 w-50 my-3">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <label for="password-length">Lunghezza Password:</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="number" name="password-length" id="password-length" min="1" class="py-2">
+                            </div>
+                            <div class="col-12 d-flex justify-content-center mt-5">
+                                <!-- Button -->
+                                <button type="submit" class="btn btn-primary mx-1">Invia</button>
+                                <button type="reset" class="btn btn-secondary mx-1">Annulla</button>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <input type="text" name="password-length" id="password-length" class="py-2">
-                        </div>
-                        <div class="col-12 d-flex justify-content-center mt-5">
-                            <button type="submit" class="btn btn-primary mx-1">Invia</button>
-                            <button type="reset" class="btn btn-secondary mx-1">Annulla</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                <?php } else{ ?>
+                <!-- Password Content -->
+                <div class="password-content text-center bg-white rounded-3 p-5 w-50">
+                    <h3>
+                        <?php echo $password ?>
+                    </h3>
+                </div>
+                <?php } ?>
 
+            </div>
         </div>
     </div>
 </body>
